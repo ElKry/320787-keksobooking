@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
 * Студент: [Елизавета Кряжкова](https://up.htmlacademy.ru/javascript/8/user/320787).
-* Наставник: `Неизвестно`.
+* Наставник: `Иван Гунченко`.
 
 ---
 
