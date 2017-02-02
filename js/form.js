@@ -10,9 +10,9 @@ var removeClass = function (pinsElements, className) {
 };
 
 for (var i = 0; i < pins.length; i++) {
-  pins[i].addEventListener('click', function () {
+  pins[i].addEventListener('click', function (evt) {
     removeClass(pins, 'pin--active');
-    this.classList.add('pin--active');
+    evt.target.parentNode.classList.add('pin--active');
     dialog.style.display = 'block';
   });
 }
@@ -30,7 +30,7 @@ var synchronizeTime = function (timeElement, timeoutElement) {
     var timeoutIndex = timeElement.options.selectedIndex;
     timeoutElement.options[timeoutIndex].selected = true;
   });
-}
+};
 
 synchronizeTime(time, timeout);
 synchronizeTime(timeout, time);
