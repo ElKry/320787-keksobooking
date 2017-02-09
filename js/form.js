@@ -5,7 +5,6 @@ var dialog = document.querySelector('.dialog');
 var dialogClose = document.querySelector('.dialog__close');
 
 var ENTER_KEY_CODE = 13;
-var ESCAPE_KEY_CODE = 27;
 
 var isActivateEvent = function (evt) {
   return evt.keyCode && evt.keyCode === ENTER_KEY_CODE;
@@ -24,7 +23,7 @@ var showDialog = function (targetPinElement) {
   targetPinElement.setAttribute('aria-pressed', 'true');
   dialog.style.display = 'block';
   dialog.setAttribute('aria-hidden', 'false');
-}
+};
 
 var hideDialog = function () {
   dialog.style.display = 'none';
@@ -34,14 +33,14 @@ var hideDialog = function () {
 
 pinMap.addEventListener('click', function (evt) {
   var targetPin = evt.target.parentNode;
-  if(targetPin.classList.contains('pin')) {
+  if (targetPin.classList.contains('pin')) {
     showDialog(evt.target.parentNode);
   }
 });
 
 pinMap.addEventListener('keydown', function (evt) {
   var targetPin = evt.target;
-  if(targetPin.classList.contains('pin') && isActivateEvent(evt)) {
+  if (targetPin.classList.contains('pin') && isActivateEvent(evt)) {
     showDialog(evt.target);
   }
 });
@@ -51,7 +50,7 @@ dialogClose.addEventListener('click', function () {
 });
 
 dialogClose.addEventListener('keydown', function (evt) {
-  if(isActivateEvent(evt)) {
+  if (isActivateEvent(evt)) {
     hideDialog();
   }
 });
