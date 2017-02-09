@@ -1,25 +1,59 @@
 'use strict';
 var pins = document.querySelectorAll('.pin');
+var pinMap = document.querySelector('.tokyo__pin-map');
 var dialog = document.querySelector('.dialog');
 var dialogClose = document.querySelector('.dialog__close');
+
+var ENTER_KEY_CODE = 13;
+var ESCAPE_KEY_CODE = 27;
+
+var isActivateEvent = function (evt) {
+  return evt.keyCode && evt.keyCode === ENTER_KEY_CODE;
+};
 
 var removeClass = function (pinsElements, className) {
   for (var j = 0; j < pinsElements.length; j++) {
     pinsElements[j].classList.remove(className);
+    pinsElements[j].setAttribute('aria-pressed', 'false');
   }
 };
 
-for (var i = 0; i < pins.length; i++) {
-  pins[i].addEventListener('click', function (evt) {
-    removeClass(pins, 'pin--active');
-    evt.target.parentNode.classList.add('pin--active');
-    dialog.style.display = 'block';
-  });
+var showDialog = function (targetPinElement) {
+  removeClass(pins, 'pin--active');
+  targetPinElement.classList.add('pin--active');
+  targetPinElement.setAttribute('aria-pressed', 'true');
+  dialog.style.display = 'block';
+  dialog.setAttribute('aria-hidden', 'false');
 }
 
-dialogClose.addEventListener('click', function () {
+var hideDialog = function () {
   dialog.style.display = 'none';
   removeClass(pins, 'pin--active');
+  dialog.setAttribute('aria-hidden', 'true');
+};
+
+pinMap.addEventListener('click', function (evt) {
+  var targetPin = evt.target.parentNode;
+  if(targetPin.classList.contains('pin')) {
+    showDialog(evt.target.parentNode);
+  }
+});
+
+pinMap.addEventListener('keydown', function (evt) {
+  var targetPin = evt.target;
+  if(targetPin.classList.contains('pin') && isActivateEvent(evt)) {
+    showDialog(evt.target);
+  }
+});
+
+dialogClose.addEventListener('click', function () {
+  hideDialog();
+});
+
+dialogClose.addEventListener('keydown', function (evt) {
+  if(isActivateEvent(evt)) {
+    hideDialog();
+  }
 });
 
 var time = document.querySelector('#time');
