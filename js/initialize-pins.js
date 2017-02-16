@@ -1,6 +1,6 @@
 'use strict';
 
-window.initializePins = function (pins, pinMap, dialog, dialogClose) {
+window.initPins = (function () {
   var ENTER_KEY_CODE = 13;
 
   var isActivateEvent = function (evt) {
@@ -14,7 +14,7 @@ window.initializePins = function (pins, pinMap, dialog, dialogClose) {
     }
   };
 
-  var showDialog = function (targetPinElement) {
+  var showDialog = function (targetPinElement, pins, dialog) {
     removeClass(pins, 'pin--active');
     targetPinElement.classList.add('pin--active');
     targetPinElement.setAttribute('aria-pressed', 'true');
@@ -22,33 +22,38 @@ window.initializePins = function (pins, pinMap, dialog, dialogClose) {
     dialog.setAttribute('aria-hidden', 'false');
   };
 
-  var hideDialog = function () {
+  var hideDialog = function (pins, dialog) {
     dialog.style.display = 'none';
     removeClass(pins, 'pin--active');
     dialog.setAttribute('aria-hidden', 'true');
   };
 
-  pinMap.addEventListener('click', function (evt) {
-    var targetPin = evt.target.parentNode;
-    if (targetPin.classList.contains('pin')) {
-      showDialog(evt.target.parentNode);
-    }
-  });
+  return {
+    initializePins: function (pinsE, pinMap, dialogE, dialogClose) {
 
-  pinMap.addEventListener('keydown', function (evt) {
-    var targetPin = evt.target;
-    if (targetPin.classList.contains('pin') && isActivateEvent(evt)) {
-      showDialog(evt.target);
-    }
-  });
+      pinMap.addEventListener('click', function (evt) {
+        var targetPin = evt.target.parentNode;
+        if (targetPin.classList.contains('pin')) {
+          showDialog(evt.target.parentNode, pinsE, dialogE);
+        }
+      });
 
-  dialogClose.addEventListener('click', function () {
-    hideDialog();
-  });
+      pinMap.addEventListener('keydown', function (evt) {
+        var targetPin = evt.target;
+        if (targetPin.classList.contains('pin') && isActivateEvent(evt)) {
+          showDialog(evt.target, pinsE, dialogE);
+        }
+      });
 
-  dialogClose.addEventListener('keydown', function (evt) {
-    if (isActivateEvent(evt)) {
-      hideDialog();
+      dialogClose.addEventListener('click', function () {
+        hideDialog(pinsE, dialogE);
+      });
+
+      dialogClose.addEventListener('keydown', function (evt) {
+        if (isActivateEvent(evt)) {
+          hideDialog(pinsE, dialogE);
+        }
+      });
     }
-  });
-};
+  };
+})();
