@@ -14,5 +14,5 @@ window.utils = (function () {
         pinsElements[j].setAttribute('aria-pressed', 'false');
       }
     }
-  }
+  };
 })();
