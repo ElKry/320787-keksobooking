@@ -1,25 +1,69 @@
 'use strict';
 
-var pinsEl = document.querySelectorAll('.pin');
-var pinMapEl = document.querySelector('.tokyo__pin-map');
-var dialogEl = document.querySelector('.dialog');
-var dialogCloseEl = document.querySelector('.dialog__close');
+(function () {
+  var pinsEl = document.querySelectorAll('.pin');
+  var pinMapEl = document.querySelector('.tokyo__pin-map');
+  var dialogEl = document.querySelector('.dialog');
+  var dialogCloseEl = document.querySelector('.dialog__close');
 
-window.initPins.initializePins(pinsEl, pinMapEl, dialogEl, dialogCloseEl);
+  window.showCard.openDialog(pinsEl, pinMapEl, dialogEl);
+  window.hideCard.closeDialog(pinsEl, dialogEl, dialogCloseEl, function () {
+    document.querySelector('.pin--active').focus();
+  });
 
-var time = document.querySelector('#time');
-var timeout = document.querySelector('#timeout');
+  var time = document.querySelector('#time');
+  var timeout = document.querySelector('#timeout');
 
-window.syncFields.synchronizeFields(time, timeout, [], [], 'index');
+  var syncTimeTimeout = function (timeEl, timeoutEl, timeArr, timeoutArr) {
+    var synchronizeTime = function (timeElement, timeoutElement) {
+      timeElement.addEventListener('click', function () {
+        var timeoutIndex = timeElement.options.selectedIndex;
+        timeoutElement.options[timeoutIndex].selected = true;
+      });
+    };
 
-var type = document.querySelector('#type');
-var price = document.querySelector('#price');
+    synchronizeTime(timeEl, timeoutEl);
+    synchronizeTime(timeoutEl, timeEl);
+  };
 
-window.syncFields.synchronizeFields(type, price, ['Квартира', 'Лачуга', 'Дворец'], ['1000', '0', '10000'], 'min');
+  window.syncFields.synchronizeFields(time, timeout, [], [], syncTimeTimeout);
 
-var roomNumber = document.querySelector('#room_number');
-var capacity = document.querySelector('#capacity');
+  var type = document.querySelector('#type');
+  var price = document.querySelector('#price');
 
-window.syncFields.synchronizeFields(roomNumber, capacity, ['1', '2', '100'], [0, 3], 'value');
+  var syncTypePrice = function (typeEl, priceEl, typeArr, priceArr) {
+    var typeSelectedText = typeEl.options[typeEl.options.selectedIndex].text;
 
+    if (typeSelectedText === typeArr[0]) {
+      priceEl.setAttribute('min', priceArr[0]);
+      priceEl.placeholder = priceArr[0];
+    }
+    if (typeSelectedText === typeArr[1]) {
+      priceEl.setAttribute('min', priceArr[1]);
+      priceEl.placeholder = priceArr[1];
+    }
+    if (typeSelectedText === typeArr[2]) {
+      priceEl.setAttribute('min', priceArr[2]);
+      priceEl.placeholder = priceArr[2];
+    }
+  };
+
+  window.syncFields.synchronizeFields(type, price, ['Квартира', 'Лачуга', 'Дворец'], ['1000', '0', '10000'], syncTypePrice);
+
+  var roomNumber = document.querySelector('#room_number');
+  var capacity = document.querySelector('#capacity');
+
+  var syncRoomNumberCapacity = function (roomNumberEl, capacityEl, roomNumberArr, capacityArr) {
+    var numberOfSelectedRoom = roomNumberEl.options[roomNumberEl.options.selectedIndex].value;
+
+    if (numberOfSelectedRoom === roomNumberArr[0]) {
+      capacityEl.querySelector('[value="' + capacityArr[0] + '"]').selected = true;
+    }
+    if (numberOfSelectedRoom === roomNumberArr[1] || numberOfSelectedRoom === roomNumberArr[2]) {
+      capacityEl.querySelector('[value="' + capacityArr[1] + '"]').selected = true;
+    }
+  };
+
+  window.syncFields.synchronizeFields(roomNumber, capacity, ['1', '2', '100'], [0, 3], syncRoomNumberCapacity);
+})();
 
