@@ -9,7 +9,7 @@
     var newCard = elementToClone.cloneNode(true);
 
     return newCard;
-  }
+  };
 
   var tokyo = document.querySelector('section.tokyo');
   tokyo.appendChild(initCard());

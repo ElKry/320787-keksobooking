@@ -16,7 +16,7 @@ window.initializePins = (function () {
     for (var i = 0; i < 3; i++) {
       pinMap.appendChild(createElementFromTemplate(similarApartments[i]));
     }
-  }
+  };
 })();
 
 

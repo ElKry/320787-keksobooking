@@ -18,22 +18,22 @@ window.showCard = (function () {
     for (var j = 0; j < cardFeaturesItems.length; j++) {
       cardFeaturesItems[j].style.display = 'block';
     }
-    if(cardFeatures.indexOf('wifi') === -1) {
+    if (cardFeatures.indexOf('wifi') === -1) {
       dialogFeatures.querySelector('.feature__image--wifi').style.display = 'none';
     }
-    if(cardFeatures.indexOf('dishwasher') === -1) {
+    if (cardFeatures.indexOf('dishwasher') === -1) {
       dialogFeatures.querySelector('.feature__image--dishwasher').style.display = 'none';
     }
-    if(cardFeatures.indexOf('parking') === -1) {
+    if (cardFeatures.indexOf('parking') === -1) {
       dialogFeatures.querySelector('.feature__image--parking').style.display = 'none';
     }
-    if(cardFeatures.indexOf('washer') === -1) {
+    if (cardFeatures.indexOf('washer') === -1) {
       dialogFeatures.querySelector('.feature__image--washer').style.display = 'none';
     }
-    if(cardFeatures.indexOf('elevator') === -1) {
+    if (cardFeatures.indexOf('elevator') === -1) {
       dialogFeatures.querySelector('.feature__image--elevator').style.display = 'none';
     }
-    if(cardFeatures.indexOf('conditioner') === -1) {
+    if (cardFeatures.indexOf('conditioner') === -1) {
       dialogFeatures.querySelector('.feature__image--conditioner').style.display = 'none';
     }
     newElement.querySelector('.lodge__description').innerText = card.offer.description;
