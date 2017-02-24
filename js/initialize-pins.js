@@ -1,26 +1,22 @@
 'use strict';
 
-window.hideCard = (function () {
-  var hideDialog = function (pins, dialog, cb) {
-    dialog.style.display = 'none';
-    if (typeof cb === 'function') {
-      cb();
-    }
-    window.utils.removeClass(pins, 'pin--active');
-    dialog.setAttribute('aria-hidden', 'true');
+window.initializePins = (function () {
+  var createElementFromTemplate = function (similarApartment) {
+    var templateElement = document.querySelector('#pin-template');
+    var elementToClone = templateElement.content.querySelector('.pin');
+    var newElement = elementToClone.cloneNode(true);
+    newElement.querySelector('img').setAttribute('src', similarApartment.author.avatar);
+    newElement.style.left = similarApartment.location.x + 'px';
+    newElement.style.top = similarApartment.location.y + 'px';
+
+    return newElement;
   };
 
-  return {
-    closeDialog: function (pinsE, dialogE, dialogClose, cb) {
-      dialogClose.addEventListener('click', function () {
-        hideDialog(pinsE, dialogE);
-      });
-
-      dialogClose.addEventListener('keydown', function (evt) {
-        if (window.utils.isActivateEvent(evt)) {
-          hideDialog(pinsE, dialogE, cb);
-        }
-      });
+  return function (pinMap, similarApartments) {
+    for (var i = 0; i < 3; i++) {
+      pinMap.appendChild(createElementFromTemplate(similarApartments[i]));
     }
-  };
+  }
 })();
+
+
