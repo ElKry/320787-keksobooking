@@ -5,8 +5,8 @@ window.initializeFilter = (function () {
   var jj;
 
   var contains = function (where, what) {
-    for (jj = 0; jj < what.length; jj++) {
-      if (where.indexOf(what[jj]) === -1) {
+    for (var ind = 0; ind < what.length; ind++) {
+      if (where.indexOf(what[ind]) === -1) {
         return false;
       }
     }
