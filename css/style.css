@@ -549,7 +549,8 @@ select option:hover {
     line-height: 16px;
 }
 
-.lodge__rooms-and-guests {
+.lodge__rooms,
+.lodge__guests {
     margin: 0;
     font-size: 12px;
     line-height: 16px;

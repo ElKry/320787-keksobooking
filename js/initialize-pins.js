@@ -12,8 +12,8 @@ window.initializePins = (function () {
     return newElement;
   };
 
-  return function (pinMap, similarApartments) {
-    for (var i = 0; i < 3; i++) {
+  return function (pinMap, similarApartments, length) {
+    for (var i = 0; i < length; i++) {
       pinMap.appendChild(createElementFromTemplate(similarApartments[i]));
     }
   };
