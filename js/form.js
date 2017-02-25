@@ -18,7 +18,7 @@
   var dialogCloseEl = document.querySelector('.dialog__close');
 
   window.load('https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data', function (data) {
-    window.initializePins(pinMapEl, data);
+    window.initializePins(pinMapEl, data, 3);
     window.showCard.initCard(data[data.length - 1], dialogEl);
   });
 
@@ -26,6 +26,8 @@
   window.hideCard.closeDialog(dialogEl, dialogCloseEl, function () {
     document.querySelector('.pin--active').focus();
   });
+
+  window.initializeFilter();
 
   var time = document.querySelector('#time');
   var timeout = document.querySelector('#timeout');
