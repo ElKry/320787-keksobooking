@@ -2,9 +2,10 @@
 
 window.initializeFilter = (function () {
   var filterForm = document.querySelector('.tokyo__filters');
+  var jj;
 
   var contains = function (where, what) {
-    for (var jj = 0; jj < what.length; jj++) {
+    for (jj = 0; jj < what.length; jj++) {
       if (where.indexOf(what[jj]) === -1) {
         return false;
       }
