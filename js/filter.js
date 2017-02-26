@@ -2,11 +2,11 @@
 
 window.initializeFilter = (function () {
   var filterForm = document.querySelector('.tokyo__filters');
-  var jj;
+  var i;
 
   var contains = function (where, what) {
-    for (var ind = 0; ind < what.length; ind++) {
-      if (where.indexOf(what[ind]) === -1) {
+    for (var j = 0; j < what.length; j++) {
+      if (where.indexOf(what[j]) === -1) {
         return false;
       }
     }
@@ -16,15 +16,15 @@ window.initializeFilter = (function () {
   var filter = function (filterObject, pinsArray) {
     var resultPinArray = [];
 
-    for (jj = 0; jj < pinsArray.length; jj++) {
-      if (filterObject.type === pinsArray[jj].offer.type || filterObject.type === 'any') {
-        if ((filterObject.price === 'middle' && ((pinsArray[jj].offer.price >= 10000) && (pinsArray[jj].offer.price <= 50000))) ||
-            (filterObject.price === 'low' && pinsArray[jj].offer.price < 10000) ||
-            (filterObject.price === 'hight' && pinsArray[jj].offer.price > 50000)) {
-          if (+filterObject.rooms === pinsArray[jj].offer.rooms || filterObject.rooms === 'any') {
-            if (+filterObject.guests === pinsArray[jj].offer.guests || filterObject.guests === 'any') {
-              if (contains(pinsArray[jj].offer.features, filterObject.features)) {
-                resultPinArray.push(pinsArray[jj]);
+    for (i = 0; i < pinsArray.length; i++) {
+      if (filterObject.type === pinsArray[i].offer.type || filterObject.type === 'any') {
+        if ((filterObject.price === 'middle' && ((pinsArray[i].offer.price >= 10000) && (pinsArray[i].offer.price <= 50000))) ||
+            (filterObject.price === 'low' && pinsArray[i].offer.price < 10000) ||
+            (filterObject.price === 'hight' && pinsArray[i].offer.price > 50000)) {
+          if (+filterObject.rooms === pinsArray[i].offer.rooms || filterObject.rooms === 'any') {
+            if (+filterObject.guests === pinsArray[i].offer.guests || filterObject.guests === 'any') {
+              if (contains(pinsArray[i].offer.features, filterObject.features)) {
+                resultPinArray.push(pinsArray[i]);
               }
             }
           }
@@ -47,16 +47,16 @@ window.initializeFilter = (function () {
       currentFilter.guests = filterGuests.options[filterGuests.selectedIndex].value;
       var filterFeatures = filterForm.querySelector('#housing_features').elements;
       currentFilter.features = [];
-      for (jj = 0; jj < filterFeatures.length; jj++) {
-        if (filterFeatures[jj].checked) {
-          currentFilter.features.push(filterFeatures[jj].value);
+      for (i = 0; i < filterFeatures.length; i++) {
+        if (filterFeatures[i].checked) {
+          currentFilter.features.push(filterFeatures[i].value);
         }
       }
       window.load('https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data', function (data) {
         var pinMapEll = document.querySelector('.tokyo__pin-map');
         var removedPins = document.querySelectorAll('.pin:not(.pin__main)');
-        for (jj = 0; jj < removedPins.length; jj++) {
-          pinMapEll.removeChild(removedPins[jj]);
+        for (i = 0; i < removedPins.length; i++) {
+          pinMapEll.removeChild(removedPins[i]);
         }
         var filterData = filter(currentFilter, data);
         window.initializePins(pinMapEll, filterData, filterData.length);

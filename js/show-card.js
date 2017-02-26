@@ -3,7 +3,13 @@
 window.showCard = (function () {
   var targetPin = null;
 
-  var initCard = function (card, newElement) {
+  var checkAvailabilityOfFeature = function (featureElements, featureArr, classOfEl, propertyOfArr) {
+    if(featureArr.indexOf(classOfEl) === -1) {
+      featureElements.querySelector(propertyOfArr).style.display = 'none';
+    }
+  }
+
+  var fillCard = function (card, newElement) {
     newElement.querySelector('.dialog__title > img').setAttribute('src', card.author.avatar);
     var dialogPanel = newElement.querySelector('.dialog__panel');
     dialogPanel.querySelector('.lodge__title').innerText = card.offer.title;
@@ -19,24 +25,13 @@ window.showCard = (function () {
     for (var j = 0; j < cardFeaturesItems.length; j++) {
       cardFeaturesItems[j].style.display = 'block';
     }
-    if (cardFeatures.indexOf('wifi') === -1) {
-      dialogFeatures.querySelector('.feature__image--wifi').style.display = 'none';
-    }
-    if (cardFeatures.indexOf('dishwasher') === -1) {
-      dialogFeatures.querySelector('.feature__image--dishwasher').style.display = 'none';
-    }
-    if (cardFeatures.indexOf('parking') === -1) {
-      dialogFeatures.querySelector('.feature__image--parking').style.display = 'none';
-    }
-    if (cardFeatures.indexOf('washer') === -1) {
-      dialogFeatures.querySelector('.feature__image--washer').style.display = 'none';
-    }
-    if (cardFeatures.indexOf('elevator') === -1) {
-      dialogFeatures.querySelector('.feature__image--elevator').style.display = 'none';
-    }
-    if (cardFeatures.indexOf('conditioner') === -1) {
-      dialogFeatures.querySelector('.feature__image--conditioner').style.display = 'none';
-    }
+    checkAvailabilityOfFeature(dialogFeatures, cardFeatures, 'wifi', '.feature__image--wifi');
+    checkAvailabilityOfFeature(dialogFeatures, cardFeatures, 'dishwasher', '.feature__image--dishwasher');
+    checkAvailabilityOfFeature(dialogFeatures, cardFeatures, 'parking', '.feature__image--parking');
+    checkAvailabilityOfFeature(dialogFeatures, cardFeatures, 'washer', '.feature__image--washer');
+    checkAvailabilityOfFeature(dialogFeatures, cardFeatures, 'elevator', '.feature__image--elevator');
+    checkAvailabilityOfFeature(dialogFeatures, cardFeatures, 'conditioner', '.feature__image--conditioner');
+
     newElement.querySelector('.lodge__description').innerText = card.offer.description;
   };
 
@@ -50,10 +45,10 @@ window.showCard = (function () {
       var imgIdentificator = targetPinElement.querySelector('img');
       for (var i = 0; i < data.length; i++) {
         if (data[i].author.avatar === imgIdentificator.getAttribute('src')) {
-          initCard(data[i], dialog);
+          fillCard(data[i], dialog);
         }
         if (imgIdentificator.getAttribute('src') === 'img/main-pin-image.png') {
-          initCard(data[data.length - 1], dialog);
+          fillCard(data[data.length - 1], dialog);
         }
       }
     });
@@ -77,6 +72,14 @@ window.showCard = (function () {
       });
     },
 
-    initCard: initCard
+    fillCard: fillCard,
+
+    initCard: function () {
+      var templateCard = document.querySelector('#dialog-template');
+      var elementToClone = templateCard.content.querySelector('.dialog');
+      var newCard = elementToClone.cloneNode(true);
+
+      return newCard;
+    }
   };
 })();

@@ -2,24 +2,15 @@
 
 (function () {
   var pinMapEl = document.querySelector('.tokyo__pin-map');
-
-  var initCard = function () {
-    var templateCard = document.querySelector('#dialog-template');
-    var elementToClone = templateCard.content.querySelector('.dialog');
-    var newCard = elementToClone.cloneNode(true);
-
-    return newCard;
-  };
-
   var tokyo = document.querySelector('section.tokyo');
-  tokyo.appendChild(initCard());
+  tokyo.appendChild(window.showCard.initCard());
 
   var dialogEl = document.querySelector('.dialog');
   var dialogCloseEl = document.querySelector('.dialog__close');
 
   window.load('https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data', function (data) {
     window.initializePins(pinMapEl, data, 3);
-    window.showCard.initCard(data[data.length - 1], dialogEl);
+    window.showCard.fillCard(data[data.length - 1], dialogEl);
   });
 
   window.showCard.openDialog(pinMapEl, dialogEl);
