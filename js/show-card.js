@@ -4,10 +4,10 @@ window.showCard = (function () {
   var targetPin = null;
 
   var checkAvailabilityOfFeature = function (featureElements, featureArr, classOfEl, propertyOfArr) {
-    if(featureArr.indexOf(classOfEl) === -1) {
+    if (featureArr.indexOf(classOfEl) === -1) {
       featureElements.querySelector(propertyOfArr).style.display = 'none';
     }
-  }
+  };
 
   var fillCard = function (card, newElement) {
     newElement.querySelector('.dialog__title > img').setAttribute('src', card.author.avatar);
