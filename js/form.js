@@ -25,7 +25,7 @@
 
   var syncTimeTimeout = function (timeEl, timeoutEl, timeArr, timeoutArr) {
     var synchronizeTime = function (timeElement, timeoutElement) {
-      timeElement.addEventListener('click', function () {
+      timeElement.addEventListener('change', function () {
         var timeoutIndex = timeElement.options.selectedIndex;
         timeoutElement.options[timeoutIndex].selected = true;
       });
@@ -41,7 +41,7 @@
   var price = document.querySelector('#price');
 
   var syncTypePrice = function (typeEl, priceEl, typeArr, priceArr) {
-    priceEl.addEventListener('input', function () {
+    priceEl.addEventListener('change', function () {
       var priceValue = +priceEl.value;
 
       if (priceValue >= +priceArr[0] && priceValue < +priceArr[2]) {
@@ -55,7 +55,7 @@
       }
     });
 
-    typeEl.addEventListener('click', function () {
+    typeEl.addEventListener('change', function () {
       var typeSelectedText = typeEl.options[typeEl.options.selectedIndex].text;
 
       if (typeSelectedText === typeArr[0]) {
@@ -79,7 +79,7 @@
   var capacity = document.querySelector('#capacity');
 
   var syncRoomNumberCapacity = function (roomNumberEl, capacityEl, roomNumberArr, capacityArr) {
-    roomNumberEl.addEventListener('click', function () {
+    roomNumberEl.addEventListener('change', function () {
       var numberOfSelectedRoom = roomNumberEl.options[roomNumberEl.options.selectedIndex].value;
 
       if (numberOfSelectedRoom === roomNumberArr[0]) {
@@ -90,7 +90,7 @@
       }
     });
 
-    capacityEl.addEventListener('click', function () {
+    capacityEl.addEventListener('change', function () {
       var capacityIndex = capacityEl.options.selectedIndex;
       if (capacityIndex === 0) {
         roomNumberEl.options[1].selected = true;
