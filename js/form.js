@@ -92,7 +92,7 @@
 
     capacityEl.addEventListener('click', function () {
       var capacityIndex = capacityEl.options.selectedIndex;
-      if(capacityIndex === 0) {
+      if (capacityIndex === 0) {
         roomNumberEl.options[1].selected = true;
       } else {
         roomNumberEl.options[0].selected = true;
